@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thelagan Varadharaj</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Protest+Strike&display=swap"
+        rel="stylesheet">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Protest Strike', sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 1.2rem;
+            color: #FFF;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            z-index: 100;
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            display: flex;
+            gap: 40px;
+            z-index: 100;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.3rem;
+            position: relative;
+            cursor: none;
+        }
+
+        .nav-links a.current {
+            color: #6CFF58;
+        }
+
+        .nav-links a:not(.current)::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background: #6CFF58;
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            transition: 0.5s;
+        }
+
+        .nav-links a:not(.current):hover::after {
+            width: 100%;
+        }
+
+        .contact-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: center;
+            align-items: center;
+            gap: 100px;
+            padding: 20px;
+        }
+
+        .left-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .profile-pic {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #333;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 40px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 2rem;
+            text-decoration: none;
+            cursor: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #6CFF58;
+            transform: scale(1.1);
+        }
+
+        .right-pane {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .contact-heading {
+            font-size: 4rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            text-align: right;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .contact-heading span {
+            color: #6CFF58;
+        }
+
+        .contact-info {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            color: #ccc;
+            font-family: "Poppins", sans-serif;
+            text-align: right;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .contact-info p {
+            font-family: 'Poppins';
+        }
+
+        form {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background-color: #333;
+            border: none;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            font-family: "Poppins", sans-serif;
+            cursor: auto;
+        }
+
+        .form-bottom-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        textarea {
+            flex: 1;
+            height: 150px;
+            resize: none;
+            margin-bottom: 0;
+        }
+
+        button {
+            background-color: #6CFF58;
+            color: #000;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: none;
+            padding: 15px 30px;
+            font-family: "Protest Strike", sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            height: 150px;
+            width: 120px;
+            font-family: "Poppins";
+        }
+
+        button:hover {
+            background-color: #fff;
+        }
+
+        ::placeholder {
+            color: #aaa;
+        }
+
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .cursor-dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hamburger {
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            body {
+                cursor: default;
+                overflow-y: auto;
+            }
+
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
+            }
+
+            .logo {
+                top: 25px;
+                left: 20px;
+            }
+
+            .contact-container {
+                flex-direction: column;
+                padding-top: 100px;
+                gap: 50px;
+            }
+
+            .left-pane,
+            .right-pane {
+                align-items: center;
+                text-align: center;
+                width: 100%;
+            }
+
+            .right-pane {
+                flex: 1;
+            }
+
+            .contact-heading,
+            .contact-info {
+                text-align: center;
+            }
+
+            .profile-pic {
+                width: 200px;
+                height: 200px;
+            }
+
+            .contact-heading {
+                font-size: 3rem;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-bottom-row {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            textarea,
+            button {
+                width: 100%;
+                height: auto;
+            }
+
+            textarea {
+                height: 120px;
+            }
+
+            button {
+                padding: 15px;
+            }
+
+            .hamburger {
+                display: flex;
+                position: absolute;
+                top: 30px;
+                right: 30px;
+                z-index: 1001;
+                cursor: pointer;
+                width: 30px;
+                height: 22px;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .hamburger .line {
+                width: 100%;
+                height: 3px;
+                background-color: #fff;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transform: translateX(100%);
+                transition: transform 0.4s ease-in-out;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                font-size: 2rem;
+                cursor: pointer;
+            }
+
+            .hamburger.active .line:nth-child(1) {
+                transform: rotate(45deg) translate(7px, 7px);
+            }
+
+            .hamburger.active .line:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .line:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    <div class="logo">V THELAGAN</div>
+
+    <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html" class="current">Contact</a>
+    </div>
+
+    <div class="contact-container">
+        <div class="left-pane">
+            <img src="images/thelaganvaradharaj.png" alt="Profile Picture" class="profile-pic">
+            <div class="social-icons">
+                <a href="https://github.com/thelaganvaradharaj" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/thelagan-varadharaj/" target="_blank"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="https://instagram.com/thelagan_varadharaj_/" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="right-pane">
+            <h1 class="contact-heading">Contact <span>Me</span></h1>
+            <div class="contact-info">
+                <p>vthelagan.act2023@citchennai.net</p>
+                <p>9003089118</p>
+            </div>
+
+            <form id="contactForm">
+                <input type="text" id="from_name" name="from_name" placeholder="Name" required>
+                <input type="email" id="email_id" name="email_id" placeholder="Email" required>
+                <div class="form-bottom-row">
+                    <textarea id="message" name="message" placeholder="Message" required></textarea>
+                    <button type="submit" id="submit-btn">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            emailjs.init({
+                publicKey: "_z1M2BXj84y-A_yoi",
+            });
+        })();
+
+        document.getElementById('contactForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            const serviceID = 'service_vdcd6g8';
+            const templateID = 'template_00oxr9e';
+
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    submitBtn.textContent = 'Sent!';
+                    setTimeout(() => {
+                        submitBtn.textContent = 'Send';
+                        submitBtn.disabled = false;
+                        document.getElementById('contactForm').reset();
+                    }, 2000);
+                }, (err) => {
+                    submitBtn.textContent = 'Error!';
+                    alert('Failed to send message. Please try again later. Error: ' + JSON.stringify(err));
+                    setTimeout(() => {
+                        submitBtn.textContent = 'Send';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            if (!isTouchDevice) {
+                const dot = document.querySelector('.cursor-dot');
+                const outline = document.querySelector('.cursor-outline');
+                let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+                const speed = 0.10;
+
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    dot.style.left = `${mouseX}px`;
+                    dot.style.top = `${mouseY}px`;
+                });
+
+                function animateCursor() {
+                    outlineX += (mouseX - outlineX) * speed;
+                    outlineY += (mouseY - outlineY) * speed;
+                    outline.style.left = `${outlineX}px`;
+                    outline.style.top = `${outlineY}px`;
+                    requestAnimationFrame(animateCursor);
+                }
+                animateCursor();
+
+                document.querySelectorAll('a, button').forEach(link => {
+                    link.addEventListener('mouseover', () => {
+                        outline.style.width = '50px';
+                        outline.style.height = '50px';
+                        outline.style.borderColor = 'rgba(108, 255, 88, 0.6)';
+                        outline.style.background = 'rgba(108, 255, 88, 0.1)';
+                    });
+                    link.addEventListener('mouseout', () => {
+                        outline.style.width = '40px';
+                        outline.style.height = '40px';
+                        outline.style.borderColor = 'rgba(255,255,255,0.3)';
+                        outline.style.background = 'rgba(255,255,255,0.1)';
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

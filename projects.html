@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thelagan Varadharaj</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Protest+Strike&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Protest Strike', sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow: hidden;
+            cursor: none;
+            min-height: 100vh;
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 1.2rem;
+            color: #FFF;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            z-index: 100;
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            display: flex;
+            gap: 40px;
+            z-index: 100;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.3rem;
+            position: relative;
+            cursor: none;
+        }
+
+        .nav-links a.current {
+            color: #6CFF58;
+        }
+
+        .nav-links a:not(.current)::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background: #6CFF58;
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            transition: 0.5s;
+        }
+
+        .nav-links a:not(.current):hover::after {
+            width: 100%;
+        }
+
+        .main-content {
+            width: 100%;
+            padding-top: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-heading {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .page-heading span {
+            color: #6CFF58;
+        }
+
+        .project-counter {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .counter-text {
+            color: #aaa;
+        }
+
+        .counter-digit {
+            font-weight: 600;
+            color: #6CFF58;
+        }
+
+        .instructions {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            color: #aaa;
+            padding: 0 20px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 300;
+        }
+
+        .mobile-instructions {
+            display: none;
+        }
+
+        .projects-scroll-container {
+            position: relative;
+            width: 100%;
+            height: 450px;
+        }
+
+        .scroller {
+            display: flex;
+            width: fit-content;
+            height: 100%;
+            animation: scroll 10s linear infinite;
+        }
+
+        .project-card {
+            width: 300px;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, filter 0.3s ease;
+            margin: 0 20px;
+            flex-shrink: 0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.7) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 20px;
+            overflow: hidden;
+            z-index: 2;
+
+        }
+
+        .project-card:hover .project-overlay-content {
+            opacity: 1;
+            transform: translateY(0px);
+        }
+
+        .project-overlay-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .project-description {
+            font-size: 1rem;
+            color: #ddd;
+            font-family: "Poppins", sans-serif;
+            font-weight: 300;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .download-link {
+            font-size: 0.9rem;
+            color: #6CFF58;
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            background: rgba(40, 40, 40, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .download-link:hover {
+            cursor: none;
+        }
+
+        .edge-blur {
+            position: absolute;
+            top: -12px;
+            width: 150px;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .left-blur {
+            left: 0;
+            background: linear-gradient(90deg, #000 0%, transparent 100%);
+        }
+
+        .right-blur {
+            right: 0;
+            background: linear-gradient(270deg, #000 0%, transparent 100%);
+        }
+
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .cursor-dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .glowing-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+        }
+
+        .circle-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(108, 255, 88, 0.5) 0%, transparent 70%);
+            top: 10%;
+            left: 10%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .circle-2 {
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(88, 218, 255, 0.4) 0%, transparent 70%);
+            bottom: 10%;
+            right: 10%;
+            animation: float 18s infinite ease-in-out reverse;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(20px, -30px);
+            }
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .hamburger {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: default;
+                overflow-y: hidden;
+                overflow-x: hidden;
+            }
+
+            .cursor-dot,
+            .cursor-outline,
+            .edge-blur {
+                display: none;
+            }
+
+            .logo {
+                top: 25px;
+                left: 20px;
+            }
+
+            .main-content {
+                padding-top: 100px;
+                margin-top: 25%;
+            }
+
+            .page-heading {
+                font-size: 2.2rem;
+            }
+
+            .project-counter {
+                font-size: 1rem;
+            }
+
+            .instructions {
+                display: none;
+            }
+
+            .mobile-instructions {
+                display: block;
+                text-align: center;
+                margin-bottom: 30px;
+                font-size: 1rem;
+                color: #aaa;
+                padding: 0 20px;
+                font-family: "Poppins", sans-serif;
+                font-weight: 300;
+            }
+
+            .projects-scroll-container {
+                height: 420px;
+                overflow-x: auto;
+                overflow-y: visible;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .scroller {
+                animation: none;
+            }
+
+            .project-card {
+                width: 280px;
+                height: 380px;
+                margin: 20px 10px;
+            }
+
+            .project-overlay {
+                background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.7) 100%);
+            }
+
+            .project-overlay-content {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .project-title {
+                font-size: 1.5rem;
+            }
+
+            .project-description {
+                font-size: 0.9rem;
+            }
+
+            .download-link {
+                font-size: 0.8rem;
+            }
+
+            .hamburger {
+                display: flex;
+                position: absolute;
+                top: 30px;
+                right: 30px;
+                z-index: 1001;
+                cursor: pointer;
+                width: 30px;
+                height: 22px;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .hamburger .line {
+                width: 100%;
+                height: 3px;
+                background-color: #fff;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transform: translateX(100%);
+                transition: transform 0.4s ease-in-out;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                font-size: 2rem;
+                cursor: pointer;
+            }
+
+            .hamburger.active .line:nth-child(1) {
+                transform: rotate(45deg) translate(7px, 7px);
+            }
+
+            .hamburger.active .line:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .line:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    <div class="background-elements">
+        <div class="glowing-circle circle-1"></div>
+        <div class="glowing-circle circle-2"></div>
+    </div>
+    <div class="logo">V THELAGAN</div>
+    <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html" class="current">Projects</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="main-content">
+        <div class="page-heading">My <span>Projects</span></div>
+        <div class="project-counter">
+            <span class="counter-text">Projects Completed:</span>
+            <span id="counter" class="counter-digit">0</span>
+        </div>
+        <div class="instructions">Hover a card to pause and see details.</div>
+        <div class="mobile-instructions">Drag to scroll. Tap a download link on any card.</div>
+
+        <div class="projects-scroll-container" id="scroll-container">
+            <div class="edge-blur left-blur"></div>
+            <div class="edge-blur right-blur"></div>
+            <div class="scroller" id="scroller">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const projects = [
+                { title: "Smart Sanitizer Dispenser", description: "An 3d printed automated hand sanitizer dispenser with proximity detection and usage analytics for improved hygiene compliance.", image: "images/smarthandsanitizer.jpeg", filename: "downloads/smartsanitizer.docx" },
+                { title: "Facial Attendance System", description: "Biometric system using facial recognition technology with anti spoof for accurate and efficient attendance tracking.", image: "images/facialattendance.webp", filename: "downloads/facialattendance.docx" },
+                { title: "Medical Kiosk Robot", description: "Autonomous robotic kiosk for basic medical diagnostics and patient information collection in remote healthcare.", image: "images/medicalkiosk.jpg", filename: "downloads/medicalkiosk.docx" },
+                { title: "FireScout", description: "Advanced real time fire detection and fire type classification device. Using 3 layer air extraction and multi sensor-based classification.", image: "images/firescout.jpg", filename: "downloads/firescout.docx" },
+                { title: "Li-fi Share App", description: "Advanced light fidelity based file sharing app using a mobile's camera and torch architecture.", image: "images/lifishare.png", filename: "downloads/LifiDrop.docx" },
+                { title: "Geolarm Application", description: "Geofencing-based alarm system that triggers alerts based on user location with customizable zones.", image: "images/geolarm.png", filename: "downloads/geoalarm.docx" }
+            ];
+
+            const scroller = document.getElementById('scroller');
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            function createProjectCard(project) {
+                return `
+                        <div class="project-card" style="background-image: url('${project.image}')">
+                            <div class="project-overlay">
+                                <div class="project-overlay-content">
+                                    <h3 class="project-title">${project.title}</h3>
+                                    <p class="project-description">${project.description}</p>
+                                    <a href="${project.filename}" download class="download-link">Download Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+            }
+
+            function initScroller() {
+                if (!scroller) return;
+                let content = projects.map(createProjectCard).join('');
+
+                if (isTouchDevice) {
+                    scroller.innerHTML = content;
+                    setupMobileDragScroll();
+                } else {
+                    scroller.innerHTML = content + content;
+                    addDesktopHoverListeners();
+                }
+            }
+
+            function addDesktopHoverListeners() {
+                scroller.addEventListener('mouseover', () => scroller.style.animationPlayState = 'paused');
+                scroller.addEventListener('mouseout', () => scroller.style.animationPlayState = 'running');
+            }
+
+            function setupMobileDragScroll() {
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+
+                scroller.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    scroller.style.cursor = 'grabbing';
+                    startX = e.pageX - scroller.offsetLeft;
+                    scrollLeft = scroller.parentElement.scrollLeft;
+                });
+
+                scroller.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    scroller.style.cursor = 'grab';
+                });
+
+                scroller.addEventListener('mouseup', () => {
+                    isDown = false;
+                    scroller.style.cursor = 'grab';
+                });
+
+                scroller.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - scroller.offsetLeft;
+                    const walk = (x - startX) * 2; 
+                    scroller.parentElement.scrollLeft = scrollLeft - walk;
+                });
+            }
+
+            function animateCounter() {
+                const counterElement = document.getElementById('counter');
+                if (!counterElement) return;
+                const target = projects.length;
+                let count = 0;
+                const interval = setInterval(() => {
+                    count++;
+                    counterElement.textContent = count;
+                    if (count >= target) clearInterval(interval);
+                }, 100);
+            }
+
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            if (!isTouchDevice) {
+                const dot = document.querySelector('.cursor-dot');
+                const outline = document.querySelector('.cursor-outline');
+                let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+                const speed = 0.10;
+
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    dot.style.left = `${mouseX}px`;
+                    dot.style.top = `${mouseY}px`;
+                });
+
+                function animateCursor() {
+                    outlineX += (mouseX - outlineX) * speed;
+                    outlineY += (mouseY - outlineY) * speed;
+                    outline.style.left = `${outlineX}px`;
+                    outline.style.top = `${outlineY}px`;
+                    requestAnimationFrame(animateCursor);
+                }
+                animateCursor();
+
+                document.querySelectorAll('a, .project-card').forEach(link => {
+                    link.addEventListener('mouseover', () => {
+                        outline.style.width = '50px';
+                        outline.style.height = '50px';
+                        outline.style.borderColor = 'rgba(108, 255, 88, 0.6)';
+                        outline.style.background = 'rgba(108, 255, 88, 0.1)';
+                    });
+                    link.addEventListener('mouseout', () => {
+                        outline.style.width = '40px';
+                        outline.style.height = '40px';
+                        outline.style.borderColor = 'rgba(255,255,255,0.3)';
+                        outline.style.background = 'rgba(255,255,255,0.1)';
+                    });
+                });
+            }
+
+            initScroller();
+            animateCounter();
+        });
+    </script>
+</body>
+
+</html>
